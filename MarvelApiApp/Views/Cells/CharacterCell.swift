@@ -17,7 +17,7 @@ class CharacterCell: UITableViewCell {
     func configureCells(character : Character) {
         
         characterName.text = character.name
-        MarvelApi.getCharacterImage(imageView: characterImageView, partialImagePathUrl: character.partialImagePathUrl, isLandscape: true) {
+        MarvelApi.getImage(imageView: characterImageView, partialImagePathUrl: character.partialImagePathUrl, isLandscape: true) {
             
         }
         

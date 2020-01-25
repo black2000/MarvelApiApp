@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		22BF29089B875D3B6E4C1E03 /* Pods_MarvelApiApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6430B7F74244CF023835B9A3 /* Pods_MarvelApiApp.framework */; };
+		B50F5AA023DBA1F20041B1F4 /* CharacterDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F5A9F23DBA1F20041B1F4 /* CharacterDetailsVC.swift */; };
+		B50F5AA223DBB2A50041B1F4 /* ComicsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F5AA123DBB2A50041B1F4 /* ComicsCell.swift */; };
+		B50F5AA423DBBB300041B1F4 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F5AA323DBBB300041B1F4 /* Comic.swift */; };
 		B5DFE8D823DA4C30002FD527 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DFE8D723DA4C30002FD527 /* AppDelegate.swift */; };
 		B5DFE8DA23DA4C30002FD527 /* CharactersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DFE8D923DA4C30002FD527 /* CharactersListVC.swift */; };
 		B5DFE8DD23DA4C30002FD527 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5DFE8DB23DA4C30002FD527 /* Main.storyboard */; };
@@ -22,6 +25,9 @@
 		6430B7F74244CF023835B9A3 /* Pods_MarvelApiApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarvelApiApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F8AC738B77560692A2FA58 /* Pods-MarvelApiApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelApiApp.debug.xcconfig"; path = "Target Support Files/Pods-MarvelApiApp/Pods-MarvelApiApp.debug.xcconfig"; sourceTree = "<group>"; };
 		9C6FFF2EAD12F1BEA8409D0B /* Pods-MarvelApiApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarvelApiApp.release.xcconfig"; path = "Target Support Files/Pods-MarvelApiApp/Pods-MarvelApiApp.release.xcconfig"; sourceTree = "<group>"; };
+		B50F5A9F23DBA1F20041B1F4 /* CharacterDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsVC.swift; sourceTree = "<group>"; };
+		B50F5AA123DBB2A50041B1F4 /* ComicsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsCell.swift; sourceTree = "<group>"; };
+		B50F5AA323DBBB300041B1F4 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
 		B5DFE8D423DA4C30002FD527 /* MarvelApiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelApiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DFE8D723DA4C30002FD527 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5DFE8D923DA4C30002FD527 /* CharactersListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListVC.swift; sourceTree = "<group>"; };
@@ -97,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				B5DFE8F023DB27E3002FD527 /* Character.swift */,
+				B50F5AA323DBBB300041B1F4 /* Comic.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -106,6 +113,7 @@
 			children = (
 				B5DFE8D723DA4C30002FD527 /* AppDelegate.swift */,
 				B5DFE8D923DA4C30002FD527 /* CharactersListVC.swift */,
+				B50F5A9F23DBA1F20041B1F4 /* CharacterDetailsVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -141,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				B5DFE8F323DB486A002FD527 /* CharacterCell.swift */,
+				B50F5AA123DBB2A50041B1F4 /* ComicsCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -261,8 +270,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5DFE8F423DB486A002FD527 /* CharacterCell.swift in Sources */,
+				B50F5AA423DBBB300041B1F4 /* Comic.swift in Sources */,
+				B50F5AA223DBB2A50041B1F4 /* ComicsCell.swift in Sources */,
 				B5DFE8EF23DAF871002FD527 /* MarvelApi.swift in Sources */,
 				B5DFE8DA23DA4C30002FD527 /* CharactersListVC.swift in Sources */,
+				B50F5AA023DBA1F20041B1F4 /* CharacterDetailsVC.swift in Sources */,
 				B5DFE8D823DA4C30002FD527 /* AppDelegate.swift in Sources */,
 				B5DFE8F123DB27E3002FD527 /* Character.swift in Sources */,
 			);

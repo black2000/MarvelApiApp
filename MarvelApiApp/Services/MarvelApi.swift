@@ -29,8 +29,9 @@ class MarvelApi {
         
         case getCharactersList
         case getCharactersListWithMatchedName(String)
-        case getCharacterstandardImage(String)
-        case getCharacterlandscapeImage(String)
+        case getStandardImage(String)
+        case getLandscapeImage(String)
+        case getCharacterComics(Int)
         
         var stringValue : String {
             switch self {
@@ -40,13 +41,14 @@ class MarvelApi {
             case .getCharactersListWithMatchedName(let nameStartWith):
                 return EndPoints.base + "/characters" + EndPoints.publicApiParam+EndPoints.tsParam+EndPoints.hashParam + "&nameStartsWith=\(nameStartWith)"
                 
-            case .getCharacterstandardImage(let imagePath) :
+            case .getStandardImage(let imagePath) :
                 return imagePath + "/standard_fantastic.jpg"
                 
-            case .getCharacterlandscapeImage(let imagePath) :
+            case .getLandscapeImage(let imagePath) :
                     return imagePath + "/landscape_amazing.jpg"
-            
                 
+            case .getCharacterComics(let characterId):
+                return EndPoints.base + "/characters/\(characterId)/comics" + EndPoints.publicApiParam+EndPoints.tsParam+EndPoints.hashParam
             }
         }
         var url : URL {
@@ -83,9 +85,10 @@ class MarvelApi {
                     for resultDictionary in resultArray {
                         if let id = resultDictionary["id"] as? Int ,
                            let name = resultDictionary["name"] as? String ,
-                           let thumbnailDictionary = resultDictionary["thumbnail"] as? [String : Any] ,
+                           let description = resultDictionary["description"] as? String ,
+                           let thumbnailDictionary = resultDictionary["thumbnail"] as? [String : Any],
                            let partialImagePathUrl = thumbnailDictionary["path"] as? String {
-                                let character = Character(id: id, name: name, partialImagePathUrl: partialImagePathUrl)
+                            let character = Character(id: id, name: name, description: description, partialImagePathUrl: partialImagePathUrl)
                                 characterArray.append(character)
                             }
                      }
@@ -96,12 +99,11 @@ class MarvelApi {
     
     
     
-   class func getCharacterImage( imageView : UIImageView , partialImagePathUrl : String , isLandscape : Bool , completion : @escaping () -> () ) {
+   class func getImage( imageView : UIImageView , partialImagePathUrl : String , isLandscape : Bool , completion : @escaping () -> () ) {
         
-    let imageUrl = isLandscape ?  EndPoints.getCharacterlandscapeImage(partialImagePathUrl).url :
-                                  EndPoints.getCharacterstandardImage(partialImagePathUrl).url
+    let imageUrl = isLandscape ?  EndPoints.getLandscapeImage(partialImagePathUrl).url :
+                                  EndPoints.getStandardImage(partialImagePathUrl).url
    
-        
         Alamofire.request(imageUrl).responseImage { response in
             
             if let image = response.result.value {
@@ -112,6 +114,45 @@ class MarvelApi {
             }
         }
    }
+    
+    
+    class func getCharacterComicsList(characterId : Int, completion : @escaping (_ error : Error? ,_ characterComicsArray : [Comic]?) -> ()) {
+        
+         print(EndPoints.getCharacterComics(characterId).url)
+        Alamofire.request(EndPoints.getCharacterComics(characterId).url).responseJSON { (response) in
+            
+           
+            print(response.result)
+            
+            var characterComicsArray = [Comic]()
+            
+            guard response.error == nil else {
+                completion(response.error , nil)
+                return
+            }
+            
+            
+            if  let baseDictionary =  response.result.value as? [String : Any]
+                ,let dataDictionary = baseDictionary["data"] as? [String : Any]
+                ,let resultArray = dataDictionary["results"] as? [[String : Any]] {
+                for resultDictionary in resultArray {
+                    if let id = resultDictionary["id"] as? Int ,
+                        let name = resultDictionary["title"] as? String ,
+                        let thumbnailDictionary = resultDictionary["thumbnail"] as? [String : Any],
+                        let partialImagePathUrl = thumbnailDictionary["path"] as? String {
+                        let comic = Comic(id: id, name: name, partialImagePathUrl: partialImagePathUrl)
+                        characterComicsArray.append(comic)
+                    }
+                }
+                completion(nil , characterComicsArray)
+            }
+        }
+    }
+    
+    
+    
+    
+    
 
 
 }

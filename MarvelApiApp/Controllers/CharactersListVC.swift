@@ -37,7 +37,6 @@ class CharactersListVC: UIViewController  {
             if error == nil {
                 if let characterArray = characterArray {
                     self.characterArray = characterArray
-                    print(characterArray)
                     self.tableView.reloadData()
                 }
             }else {
@@ -79,6 +78,17 @@ class CharactersListVC: UIViewController  {
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "toCharacterDetailsVC" {
+            if let characterDetailsVC = segue.destination as? CharacterDetailsVC ,
+               let selectedCharacter = sender as? Character {
+                characterDetailsVC.selectedCharacter = selectedCharacter
+            }
+        }
+    }
+    
+    
 
 }
 
@@ -99,10 +109,16 @@ extension CharactersListVC : UITableViewDelegate , UITableViewDataSource {
         }else {
             return UITableViewCell()
         }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        
+        let selectedCharacter = characterArray[indexPath.row]
+        performSegue(withIdentifier: "toCharacterDetailsVC", sender: selectedCharacter)
         
     }
+    
     
     
 }
@@ -119,7 +135,6 @@ extension CharactersListVC : UISearchBarDelegate {
         DispatchQueue.main.async {
             
             let startWith = searchBar.text != "" ? searchBar.text : nil
-            //print(startWith)
             self.loadCharacterList(startWith: startWith)
         }
     }
