@@ -14,9 +14,11 @@ class CharactersListVC: UIViewController  {
 
     
     var characterArray = [Character]()
+    var isSearching = false
+    var nameStartWith : String? = nil
+    var offset =  0
     
     var searchBarNav = UISearchBar()
-    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBtn: UIBarButtonItem!
     
@@ -27,16 +29,16 @@ class CharactersListVC: UIViewController  {
         tableView.dataSource = self
         
         setupSearchbarNav()
-        loadCharacterList(startWith: nil)
+        loadCharacterList(offset: offset, startWith: nil)
     }
     
     
-    private func loadCharacterList(startWith : String?) {
+    private func loadCharacterList(offset : Int,startWith : String?) {
        
-        MarvelApi.getCharacterList(startWith: startWith) { (error, characterArray) in
+        MarvelApi.getCharacterList(offset: offset, startWith: startWith) { (error, characterArray) in
             if error == nil {
                 if let characterArray = characterArray {
-                    self.characterArray = characterArray
+                    self.characterArray.append(contentsOf: characterArray)
                     self.tableView.reloadData()
                 }
             }else {
@@ -65,16 +67,20 @@ class CharactersListVC: UIViewController  {
             
             self.searchBtn.title = show ?   "" : "search"
             self.searchBtn.isEnabled = show ? false : true
+            
+            
+            self.characterArray.removeAll()
+            self.tableView.reloadData()
+            
+            self.offset = 0
+            self.isSearching = show ? true : false
          }
         
     }
     
     
     @IBAction func searchBtnClicked(_ sender: Any) {
-        
         toggleSearchBar(show: true)
-        self.characterArray.removeAll()
-        self.tableView.reloadData()
     }
     
     
@@ -116,8 +122,28 @@ extension CharactersListVC : UITableViewDelegate , UITableViewDataSource {
         
         let selectedCharacter = characterArray[indexPath.row]
         performSegue(withIdentifier: "toCharacterDetailsVC", sender: selectedCharacter)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let indexpath = self.tableView.indexPathsForVisibleRows?.last
+        
+        if(indexpath?.last == self.characterArray.count - 1 ){
+           offset += 20
+           
+            if isSearching {
+                loadCharacterList(offset: offset, startWith: nameStartWith)
+            }else {
+                loadCharacterList(offset: offset, startWith: nil)
+            }
+        }
+        
         
     }
+    
+    
+    
+    
     
     
     
@@ -133,16 +159,19 @@ extension CharactersListVC : UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         DispatchQueue.main.async {
-            
+            self.offset = 0
             let startWith = searchBar.text != "" ? searchBar.text : nil
-            self.loadCharacterList(startWith: startWith)
+            self.nameStartWith = startWith
+            self.characterArray.removeAll()
+            self.tableView.reloadData()
+            self.loadCharacterList(offset: self.offset, startWith: self.nameStartWith)
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
     {
         toggleSearchBar(show: false)
-        loadCharacterList(startWith: nil)
+        loadCharacterList(offset: offset, startWith: nil)
     }
 
 }

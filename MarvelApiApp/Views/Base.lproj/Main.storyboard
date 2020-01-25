@@ -67,7 +67,6 @@
                                         <connections>
                                             <outlet property="characterImageView" destination="XPb-Sl-sbG" id="UVs-53-s7H"/>
                                             <outlet property="characterName" destination="h6s-Qm-B01" id="GF3-G4-g5G"/>
-                                            <segue destination="dSS-pg-xit" kind="show" identifier="toCharacterDetailsVC" id="BvP-bp-Loh"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -93,11 +92,12 @@
                     <connections>
                         <outlet property="searchBtn" destination="drf-o9-5YW" id="sKW-Ya-pJ0"/>
                         <outlet property="tableView" destination="g8L-bO-beA" id="qDd-Au-j88"/>
+                        <segue destination="dSS-pg-xit" kind="show" identifier="toCharacterDetailsVC" id="zqE-Qv-fBb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1071.2" y="71.514242878560722"/>
+            <point key="canvasLocation" x="1833" y="975"/>
         </scene>
         <!--Character DetailsVC-->
         <scene sceneID="B96-nM-V1Q">
@@ -153,13 +153,13 @@
                                                                         <constraint firstAttribute="width" constant="169" id="pEi-HM-gYd"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="m13-Om-FOd">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="m13-Om-FOd">
                                                                     <rect key="frame" x="0.0" y="166" width="169" height="34"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="34" id="Ufu-IS-HcK"/>
                                                                         <constraint firstAttribute="width" constant="169" id="vTa-MF-7GX"/>
                                                                     </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -277,7 +277,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PVg-Te-vDu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2032.8" y="89.055472263868069"/>
+            <point key="canvasLocation" x="2922" y="1079"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ivF-sl-Sp9">

@@ -27,19 +27,19 @@ class MarvelApi {
         static let hash = (MD5(ts + privateApiKey + publicApiKey)).lowercased()
         static let hashParam = "&hash=\(hash)"
         
-        case getCharactersList
-        case getCharactersListWithMatchedName(String)
+        case getCharactersList(Int)
+        case getCharactersListWithMatchedName(Int,String)
         case getStandardImage(String)
         case getLandscapeImage(String)
         case getCharacterComics(Int)
         
         var stringValue : String {
             switch self {
-            case .getCharactersList:
-                return EndPoints.base + "/characters" + EndPoints.publicApiParam+EndPoints.tsParam+EndPoints.hashParam
+            case .getCharactersList(let offset):
+                return EndPoints.base + "/characters" + EndPoints.publicApiParam+EndPoints.tsParam+EndPoints.hashParam+"&offset=\(offset)"
             
-            case .getCharactersListWithMatchedName(let nameStartWith):
-                return EndPoints.base + "/characters" + EndPoints.publicApiParam+EndPoints.tsParam+EndPoints.hashParam + "&nameStartsWith=\(nameStartWith)"
+            case .getCharactersListWithMatchedName(let offset, let nameStartWith):
+                return EndPoints.base + "/characters" + EndPoints.publicApiParam+EndPoints.tsParam+EndPoints.hashParam + "&nameStartsWith=\(nameStartWith)"+"&offset=\(offset)"
                 
             case .getStandardImage(let imagePath) :
                 return imagePath + "/standard_fantastic.jpg"
@@ -58,14 +58,14 @@ class MarvelApi {
     
     
     
-    class func getCharacterList(startWith : String?, completion : @escaping (_ error : Error? ,_ charactersArray : [Character]?) -> ()) {
+    class func getCharacterList(offset : Int, startWith : String?, completion : @escaping (_ error : Error? ,_ charactersArray : [Character]?) -> ()) {
         
         var url : URL
         
         if let startWith = startWith {
-           url = EndPoints.getCharactersListWithMatchedName(startWith).url
+           url = EndPoints.getCharactersListWithMatchedName(offset,startWith).url
         }else {
-           url = EndPoints.getCharactersList.url
+           url = EndPoints.getCharactersList(offset).url
         }
         
         
