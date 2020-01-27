@@ -18,7 +18,13 @@ class Database {
     func saveCharacterInDataBase(character : Character ) {
         let realm = try! Realm()
         try! realm.write {
-            realm.add(character , update: .all)
+            
+           let existingComic = realm.objects(Character.self).filter("id == %@", character.id).first
+            
+            if existingComic == nil {
+                realm.add(character)
+            }
+            
         }
     }
     
@@ -33,10 +39,12 @@ class Database {
         let realm = try! Realm()
         try! realm.write {
           
-        let existingComic = realm.objects(Comic.self).filter("id == %@", comic.id).first
+        //let existingComic = realm.objects(Comic.self).filter("id == %@", comic.id).first
+        
+          let existingComic = character.comics.filter("id == %@", comic.id).first
             
-        // let existingComic = realm.object(ofType: Comic.self, forPrimaryKey: "id")
-            if existingComic == nil {
+            
+           if existingComic == nil {
                  character.comics.append(comic)
             }
         
@@ -44,6 +52,8 @@ class Database {
     }
     
     func loadCharacterComicsFromDataBase(character : Character) -> [Comic] {
+        print("prining eeeeee")
+        print(character)
         let characterComicsListArray = character.comics
         return Array(characterComicsListArray)
     }

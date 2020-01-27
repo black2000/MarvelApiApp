@@ -150,22 +150,22 @@ extension CharactersListVC : UITableViewDelegate , UITableViewDataSource {
         performSegue(withIdentifier: "toCharacterDetailsVC", sender: selectedCharacter)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let indexpath = self.tableView.indexPathsForVisibleRows?.last
         
         if (indexpath?.last == self.characterArray.count - 1 ) && !isOffline {
-           offset += 20
-           
+            offset += 20
+            
             if isSearching {
                 loadCharacterList(offset: offset, startWith: nameStartWith)
             }else {
                 loadCharacterList(offset: offset, startWith: nil)
             }
         }
-        
-        
     }
+    
+
     
     
     

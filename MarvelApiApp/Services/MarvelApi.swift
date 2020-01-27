@@ -63,6 +63,7 @@ class MarvelApi {
     class func getCharacterList(offset : Int, startWith : String?, completion : @escaping (_ error : Error? ,_ isOffline : Bool ,_ charactersArray : [Character]?) -> ()) {
         
         var url : URL
+        var characterArray = [Character]()
         
         if let startWith = startWith {
            url = EndPoints.getCharactersListWithMatchedName(offset,startWith).url
@@ -70,10 +71,12 @@ class MarvelApi {
            url = EndPoints.getCharactersList(offset).url
         }
         
+         print(url)
+        
         
        Alamofire.request(url).responseJSON { (response) in
             
-           var characterArray = [Character]()
+        
         
         
           guard response.error == nil else {
@@ -127,6 +130,10 @@ class MarvelApi {
     
     
     class func getCharacterComicsList(character : Character, completion : @escaping (_ error : Error? ,_ characterComicsArray : [Comic]?) -> ()) {
+        
+       
+        
+        
         
         Alamofire.request(EndPoints.getCharacterComics(character.id).url).responseJSON { (response) in
             
