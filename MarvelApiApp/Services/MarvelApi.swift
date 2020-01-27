@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 import AlamofireImage
 import SwiftHash
+import Kingfisher
+
 
 class MarvelApi {
     
@@ -52,13 +54,13 @@ class MarvelApi {
             }
         }
         var url : URL {
-            return URL(string: stringValue)!
+            return  URL(string: stringValue)!
         }
     }
     
     
     
-    class func getCharacterList(offset : Int, startWith : String?, completion : @escaping (_ error : Error? ,_ charactersArray : [Character]?) -> ()) {
+    class func getCharacterList(offset : Int, startWith : String?, completion : @escaping (_ error : Error? ,_ isOffline : Bool ,_ charactersArray : [Character]?) -> ()) {
         
         var url : URL
         
@@ -69,16 +71,24 @@ class MarvelApi {
         }
         
         
-        Alamofire.request(url).responseJSON { (response) in
+       Alamofire.request(url).responseJSON { (response) in
             
            var characterArray = [Character]()
+        
+        
+          guard response.error == nil else {
             
-           guard response.error == nil else {
-                completion(response.error , nil)
+            guard response.data?.count != 0 else {
+                let storedCharacterArray = Database.instance.loadCharacterListFromDataBase()
+                completion(nil,true, storedCharacterArray)
+                return
+            }
+            
+                completion(response.error , true , nil)
                 return
            }
-            
-            
+        
+        
             if  let baseDictionary =  response.result.value as? [String : Any]
                ,let dataDictionary = baseDictionary["data"] as? [String : Any]
                ,let resultArray = dataDictionary["results"] as? [[String : Any]] {
@@ -88,48 +98,52 @@ class MarvelApi {
                            let description = resultDictionary["description"] as? String ,
                            let thumbnailDictionary = resultDictionary["thumbnail"] as? [String : Any],
                            let partialImagePathUrl = thumbnailDictionary["path"] as? String {
-                            let character = Character(id: id, name: name, description: description, partialImagePathUrl: partialImagePathUrl)
-                                characterArray.append(character)
+                            
+                            let character = Character()
+                            character.id = id
+                            character.name = name
+                            character.characterDescription = description
+                            character.partialImagePathUrl = partialImagePathUrl
+                           
+                            characterArray.append(character)
+                            Database.instance.saveCharacterInDataBase(character: character)
                             }
                      }
-                completion(nil , characterArray)
+                completion(nil , false ,characterArray)
             }
        }
     }
     
     
     
-   class func getImage( imageView : UIImageView , partialImagePathUrl : String , isLandscape : Bool , completion : @escaping () -> () ) {
+   class func getImage( imageView : UIImageView , partialImagePathUrl : String , isLandscape : Bool  ) {
         
     let imageUrl = isLandscape ?  EndPoints.getLandscapeImage(partialImagePathUrl).url :
                                   EndPoints.getStandardImage(partialImagePathUrl).url
-   
-        Alamofire.request(imageUrl).responseImage { response in
-            
-            if let image = response.result.value {
-                DispatchQueue.main.async {
-                     imageView.image = image
-                }
-                completion()
-            }
-        }
+
+    imageView.kf.setImage(with: imageUrl)
+    
    }
     
     
-    class func getCharacterComicsList(characterId : Int, completion : @escaping (_ error : Error? ,_ characterComicsArray : [Comic]?) -> ()) {
+    class func getCharacterComicsList(character : Character, completion : @escaping (_ error : Error? ,_ characterComicsArray : [Comic]?) -> ()) {
         
-         print(EndPoints.getCharacterComics(characterId).url)
-        Alamofire.request(EndPoints.getCharacterComics(characterId).url).responseJSON { (response) in
-            
-           
-            print(response.result)
+        Alamofire.request(EndPoints.getCharacterComics(character.id).url).responseJSON { (response) in
             
             var characterComicsArray = [Comic]()
             
             guard response.error == nil else {
+                
+                guard response.data?.count != 0 else {
+                    let storedCharacterComicsArray = Database.instance.loadCharacterComicsFromDataBase(character: character)
+                    completion(nil,storedCharacterComicsArray)
+                    return
+                }
+                
                 completion(response.error , nil)
                 return
             }
+
             
             
             if  let baseDictionary =  response.result.value as? [String : Any]
@@ -140,7 +154,13 @@ class MarvelApi {
                         let name = resultDictionary["title"] as? String ,
                         let thumbnailDictionary = resultDictionary["thumbnail"] as? [String : Any],
                         let partialImagePathUrl = thumbnailDictionary["path"] as? String {
-                        let comic = Comic(id: id, name: name, partialImagePathUrl: partialImagePathUrl)
+                       
+                        let comic = Comic()
+                        comic.id = id
+                        comic.name = name
+                        comic.partialImagePathUrl = partialImagePathUrl
+                        
+                        Database.instance.saveCharacterComicsInDataBase(character: character, comic: comic)
                         characterComicsArray.append(comic)
                     }
                 }

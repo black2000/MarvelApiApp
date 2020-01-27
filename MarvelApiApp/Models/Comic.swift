@@ -7,17 +7,19 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Comic {
+class Comic : Object {
     
-    let id : Int
-    let name : String
-    let partialImagePathUrl  : String
+   @objc dynamic var id : Int = 0
+   @objc dynamic  var name : String = ""
+   @objc dynamic  var partialImagePathUrl  : String = ""
+   var parentCharacter = LinkingObjects(fromType: Character.self, property: "comics")
     
-    init(id : Int , name : String , partialImagePathUrl : String ) {
-        self.id = id
-        self.name = name
-        self.partialImagePathUrl  = partialImagePathUrl
+   
+    override static func primaryKey() -> String? {
+        return "id"
     }
+    
     
 }

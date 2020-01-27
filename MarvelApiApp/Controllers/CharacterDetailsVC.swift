@@ -33,11 +33,8 @@ class CharacterDetailsVC: UIViewController {
     
     private func loadCharacterComics() {
         if let selectedCharacter = selectedCharacter  {
-            MarvelApi.getCharacterComicsList(characterId: selectedCharacter.id) { (error, characterComicsArray) in
-                
-                
-                print(characterComicsArray!)
-                
+            MarvelApi.getCharacterComicsList(character: selectedCharacter) { (error, characterComicsArray) in
+            
                 if error == nil {
                     if let characterComicsArray = characterComicsArray {
                         self.characterComicsArray = characterComicsArray
@@ -54,11 +51,9 @@ class CharacterDetailsVC: UIViewController {
     
     private func configureViews() {
         if let selectedCharacter = selectedCharacter {
-            MarvelApi.getImage(imageView: characterImageView, partialImagePathUrl: selectedCharacter.partialImagePathUrl, isLandscape: true) {
-                
-            }
+            MarvelApi.getImage(imageView: characterImageView, partialImagePathUrl: selectedCharacter.partialImagePathUrl, isLandscape: true)
             characterNameLbl.text = selectedCharacter.name
-            characterDescriptionLbl.text = selectedCharacter.description
+            characterDescriptionLbl.text = selectedCharacter.characterDescription
         }
     }
     

@@ -17,9 +17,7 @@ class ComicsCell: UICollectionViewCell {
     
     func configureCells(comic : Comic ) {
         comicNameLbl.text = comic.name
-        MarvelApi.getImage(imageView: comicImageView, partialImagePathUrl: comic.partialImagePathUrl, isLandscape: false) {
-            
-        }
+        MarvelApi.getImage(imageView: comicImageView, partialImagePathUrl: comic.partialImagePathUrl, isLandscape: false)
     }
     
 }

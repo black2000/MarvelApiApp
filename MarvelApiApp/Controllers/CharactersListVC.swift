@@ -18,6 +18,9 @@ class CharactersListVC: UIViewController  {
     var nameStartWith : String? = nil
     var offset =  0
     
+    
+    var isOffline = false 
+    
     var searchBarNav = UISearchBar()
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBtn: UIBarButtonItem!
@@ -27,7 +30,7 @@ class CharactersListVC: UIViewController  {
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+                
         setupSearchbarNav()
         loadCharacterList(offset: offset, startWith: nil)
     }
@@ -35,10 +38,11 @@ class CharactersListVC: UIViewController  {
     
     private func loadCharacterList(offset : Int,startWith : String?) {
        
-        MarvelApi.getCharacterList(offset: offset, startWith: startWith) { (error, characterArray) in
+        MarvelApi.getCharacterList(offset: offset, startWith: startWith) { (error, isOffline ,characterArray) in
             if error == nil {
                 if let characterArray = characterArray {
                     self.characterArray.append(contentsOf: characterArray)
+                    self.isOffline = isOffline
                     self.tableView.reloadData()
                 }
             }else {
@@ -128,7 +132,7 @@ extension CharactersListVC : UITableViewDelegate , UITableViewDataSource {
         
         let indexpath = self.tableView.indexPathsForVisibleRows?.last
         
-        if(indexpath?.last == self.characterArray.count - 1 ){
+        if (indexpath?.last == self.characterArray.count - 1 ) && !isOffline {
            offset += 20
            
             if isSearching {

@@ -8,19 +8,17 @@
 
 import Foundation
 
-class Character {
+import RealmSwift
+
+class Character : Object {
     
-    let id : Int
-    let name : String
-    let description : String
-    let partialImagePathUrl  : String
+    @objc dynamic var id : Int = 0
+    @objc dynamic  var name : String = ""
+    @objc dynamic var characterDescription : String = ""
+    @objc dynamic var partialImagePathUrl  : String = ""
+    let comics = List<Comic>()
     
-    
-    init(id : Int , name : String , description : String , partialImagePathUrl : String ) {
-        self.id = id
-        self.name = name
-        self.description = description
-        self.partialImagePathUrl  = partialImagePathUrl
+    override static func primaryKey() -> String? {
+        return "id"
     }
-    
 }

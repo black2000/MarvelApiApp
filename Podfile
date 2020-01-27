@@ -9,5 +9,6 @@ target 'MarvelApiApp' do
   pod 'SwiftHash'
   pod 'Alamofire'
   pod 'AlamofireImage'
-  
+  pod 'Kingfisher'
+  pod 'RealmSwift'
 end

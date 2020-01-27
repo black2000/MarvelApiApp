@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class CharacterCell: UITableViewCell {
     
@@ -14,12 +15,16 @@ class CharacterCell: UITableViewCell {
     @IBOutlet weak var characterName: UILabel!
     
     
+    
+    
+    
+    
     func configureCells(character : Character) {
         
         characterName.text = character.name
-        MarvelApi.getImage(imageView: characterImageView, partialImagePathUrl: character.partialImagePathUrl, isLandscape: true) {
-            
-        }
+        characterImageView.kf.setImage(with: URL(string :"http://x.annihil.us/u/prod/marvel/i/mg/3/40/4bb4680432f73/landscape_amazing.jpg"))
+        
+        MarvelApi.getImage(imageView: characterImageView, partialImagePathUrl: character.partialImagePathUrl, isLandscape: true) 
         
     }
     
