@@ -24,7 +24,9 @@ class CharactersListVC: UIViewController  {
     
     var searchBarNav = UISearchBar()
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBtn: UIBarButtonItem!
+    
+    @IBOutlet var searchBtn: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,10 +92,10 @@ class CharactersListVC: UIViewController  {
             self.searchBarNav.isHidden = show ? false : true
             self.searchBarNav.text =  ""
             self.searchBarNav.placeholder = show ? "search..." : ""
+            self.searchBarNav.tintColor = .red
             
-            self.searchBtn.tintColor = show ?   .black : .red
-            self.searchBtn.isEnabled = show ? false : true
             
+            self.navigationItem.rightBarButtonItem = show ?  nil : self.searchBtn
             
             self.characterArray.removeAll()
             self.tableView.reloadData()
