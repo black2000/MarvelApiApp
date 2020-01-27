@@ -82,7 +82,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="Iv8-Hb-MDM">
-                        <barButtonItem key="rightBarButtonItem" title="Seach" id="drf-o9-5YW">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="drf-o9-5YW">
                             <color key="tintColor" red="0.8862745098" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="searchBtnClicked:" destination="BYZ-38-t0r" id="KNH-9X-J0f"/>

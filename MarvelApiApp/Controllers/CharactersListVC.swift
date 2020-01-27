@@ -34,7 +34,7 @@ class CharactersListVC: UIViewController  {
         
         
        
-        setupSearchbarNav()
+        configureViews()
         loadCharacterList(offset: offset, startWith: nil)
     }
     
@@ -68,9 +68,12 @@ class CharactersListVC: UIViewController  {
     
     
     
-    private func setupSearchbarNav() {
+    private func configureViews() {
+        
+        navigationItem.titleView = UIImageView(image: UIImage(named: "marvelLogo"))
+        
         searchBarNav.delegate = self
-        navigationItem.titleView = searchBarNav
+       
         DispatchQueue.main.async {
             self.searchBarNav.isHidden = true
         }
@@ -79,12 +82,16 @@ class CharactersListVC: UIViewController  {
     private func toggleSearchBar(show : Bool ) {
         
          DispatchQueue.main.async {
+            
+            
+            self.navigationItem.titleView = show ?  self.searchBarNav : UIImageView(image: UIImage(named: "marvelLogo"))
+            
             self.searchBarNav.setShowsCancelButton(show, animated: true)
             self.searchBarNav.isHidden = show ? false : true
             self.searchBarNav.text =  ""
             self.searchBarNav.placeholder = show ? "search..." : ""
             
-            self.searchBtn.title = show ?   "" : "search"
+            self.searchBtn.tintColor = show ?   .black : .red
             self.searchBtn.isEnabled = show ? false : true
             
             
@@ -189,6 +196,7 @@ extension CharactersListVC : UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
     {
+        print("hello")
         toggleSearchBar(show: false)
         loadCharacterList(offset: offset, startWith: nil)
     }
