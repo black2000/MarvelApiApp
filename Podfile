@@ -11,4 +11,5 @@ target 'MarvelApiApp' do
   pod 'AlamofireImage'
   pod 'Kingfisher'
   pod 'RealmSwift'
+  pod 'SVProgressHUD' 
 end

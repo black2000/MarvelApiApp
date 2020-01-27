@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftHash
+import SVProgressHUD
 
 
 class CharactersListVC: UIViewController  {
@@ -30,7 +31,9 @@ class CharactersListVC: UIViewController  {
         
         tableView.delegate = self
         tableView.dataSource = self
-                
+        
+        
+       
         setupSearchbarNav()
         loadCharacterList(offset: offset, startWith: nil)
     }
@@ -38,17 +41,29 @@ class CharactersListVC: UIViewController  {
     
     private func loadCharacterList(offset : Int,startWith : String?) {
        
+        SVProgressHUD.setBackgroundColor( .black)
+        SVProgressHUD.setForegroundColor(.white)
+        SVProgressHUD.setBorderWidth(4.0)
+        SVProgressHUD.show(withStatus: "loading character List ...")
+       
+        
         MarvelApi.getCharacterList(offset: offset, startWith: startWith) { (error, isOffline ,characterArray) in
             if error == nil {
                 if let characterArray = characterArray {
                     self.characterArray.append(contentsOf: characterArray)
                     self.isOffline = isOffline
-                    self.tableView.reloadData()
+                    
+                    DispatchQueue.main.async {
+                         self.tableView.reloadData()
+                         SVProgressHUD.dismiss()
+                    }
                 }
             }else {
                 print(error!)
             }
         }
+        
+       
     }
     
     

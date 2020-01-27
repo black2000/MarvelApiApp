@@ -32,7 +32,15 @@ class Database {
     func saveCharacterComicsInDataBase( character : Character , comic: Comic) {
         let realm = try! Realm()
         try! realm.write {
-            character.comics.append(comic)
+            
+            let array = character.comics
+            let count = character.comics.count
+            let existingComic = array.filter({ $0.id == comic.id }).first
+            
+            
+            if existingComic == nil {
+                character.comics.append(comic)
+            }
         }
     }
     

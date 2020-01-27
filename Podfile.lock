@@ -10,6 +10,7 @@ PODS:
   - Realm/Headers (4.3.1)
   - RealmSwift (4.3.1):
     - Realm (= 4.3.1)
+  - SVProgressHUD (2.2.5)
   - SwiftHash (2.0.2)
 
 DEPENDENCIES:
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - AlamofireImage
   - Kingfisher
   - RealmSwift
+  - SVProgressHUD
   - SwiftHash
 
 SPEC REPOS:
@@ -26,6 +28,7 @@ SPEC REPOS:
     - Kingfisher
     - Realm
     - RealmSwift
+    - SVProgressHUD
     - SwiftHash
 
 SPEC CHECKSUMS:
@@ -34,8 +37,9 @@ SPEC CHECKSUMS:
   Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
 
-PODFILE CHECKSUM: 9e406f8f578f1b56a3ce6ba21bef69de526b7ddd
+PODFILE CHECKSUM: 3436cf533490f8a17dfed7edb815d2be82320de7
 
 COCOAPODS: 1.8.4

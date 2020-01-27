@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class CharacterDetailsVC: UIViewController {
     
@@ -32,13 +33,23 @@ class CharacterDetailsVC: UIViewController {
     
     
     private func loadCharacterComics() {
+        
+        SVProgressHUD.setBackgroundColor( .black)
+        SVProgressHUD.setForegroundColor(.white)
+        SVProgressHUD.setBorderWidth(4.0)
+        SVProgressHUD.show(withStatus: "loading comics List ...")
+        
         if let selectedCharacter = selectedCharacter  {
             MarvelApi.getCharacterComicsList(character: selectedCharacter) { (error, characterComicsArray) in
             
                 if error == nil {
                     if let characterComicsArray = characterComicsArray {
                         self.characterComicsArray = characterComicsArray
+                        DispatchQueue.main.async {
                         self.collectionView.reloadData()
+                        SVProgressHUD.dismiss()
+                        }
+                       
                     }
                     
                 }else {
