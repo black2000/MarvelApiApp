@@ -14,9 +14,7 @@ class ComicsSlideShowVC: UIViewController {
     var selectedCharacter : Character?
     var characterComicsArray = [Comic]()
     
-    
     @IBOutlet weak var collectionView: UICollectionView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +41,7 @@ class ComicsSlideShowVC: UIViewController {
                         }
                     }
                 }else {
-                   Messages.instance.showMessage(title: "Error!", message: "Error loading Comics Slide Show List", controller: self)
+                   Messages.instance.showAlertMessage(title: "Error!", message: "Error loading Comics Slide Show List", controller: self)
                 }
             }
         }

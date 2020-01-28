@@ -14,16 +14,14 @@ class Messages {
     
     static let instance = Messages()
     
-    func showMessage(title : String , message : String , controller : UIViewController ) {
+    func showAlertMessage(title : String , message : String , controller : UIViewController ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (_) in
-            
             alert.dismiss(animated: true, completion: nil)
         }
         alert.addAction(cancelAction)
         controller.present(alert, animated : true , completion: nil)
     }
-    
     
     func showProgressSpinner(message : String)  {
             SVProgressHUD.setBackgroundColor( .black)

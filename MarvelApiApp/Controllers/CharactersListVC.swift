@@ -33,13 +33,13 @@ class CharactersListVC: UIViewController  {
         tableView.delegate = self
         tableView.dataSource = self
         
-        
         configureViews()
         loadCharacterList(offset: offset, startWith: nil)
     }
     
     
     private func loadCharacterList(offset : Int,startWith : String?) {
+        
         Messages.instance.showProgressSpinner(message: "loading character List ...")
         
         MarvelApi.getCharacterList(offset: offset, startWith: startWith) { (error, isOffline ,characterArray) in
@@ -54,13 +54,10 @@ class CharactersListVC: UIViewController  {
                     }
                 }
             }else {
-                Messages.instance.showMessage(title: "Error!", message: "Error loading character List", controller: self)
+                Messages.instance.showAlertMessage(title: "Error!", message: "Error loading character List", controller: self)
             }
         }
-        
-       
     }
-    
     
     private func configureViews() {
         navigationItem.titleView = UIImageView(image: UIImage(named: "marvelLogo"))
@@ -93,7 +90,7 @@ class CharactersListVC: UIViewController  {
     
     @IBAction func searchBtnClicked(_ sender: Any) {
         if isOffline {
-            Messages.instance.showMessage(title: "Offline", message: "Network is unavailabe", controller: self)
+            Messages.instance.showAlertMessage(title: "Offline", message: "Network is unavailabe", controller: self)
         }else {
             toggleSearchBar(show: true)
         }
@@ -164,7 +161,10 @@ extension CharactersListVC : UISearchBarDelegate {
             self.nameStartWith = startWith
             self.characterArray.removeAll()
             self.tableView.reloadData()
-            self.loadCharacterList(offset: self.offset, startWith: self.nameStartWith)
+            if startWith != nil {
+                self.loadCharacterList(offset: self.offset, startWith: self.nameStartWith)
+            }
+            
         }
     }
     

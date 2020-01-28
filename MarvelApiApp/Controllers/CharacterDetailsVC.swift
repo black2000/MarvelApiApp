@@ -47,7 +47,7 @@ class CharacterDetailsVC: UIViewController {
                         }
                     }
                 }else {
-                     Messages.instance.showMessage(title: "Error!", message: "Error loading Comics List", controller: self)
+                     Messages.instance.showAlertMessage(title: "Error!", message: "Error loading Comics List", controller: self)
                 }
             }
         }
