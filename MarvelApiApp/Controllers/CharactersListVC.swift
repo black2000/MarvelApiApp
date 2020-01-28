@@ -12,13 +12,11 @@ import SVProgressHUD
 
 
 class CharactersListVC: UIViewController  {
-
     
     var characterArray = [Character]()
     var isSearching = false
     var nameStartWith : String? = nil
     var offset =  0
-    
     
     var isOffline = false 
     

@@ -39,9 +39,9 @@ class Database {
         let realm = try! Realm()
         try! realm.write {
           
-        //let existingComic = realm.objects(Comic.self).filter("id == %@", comic.id).first
+       // let existingComic = realm.objects(Comic.self).filter("id == %@", comic.id).first
         
-          let existingComic = character.comics.filter("id == %@", comic.id).first
+           let existingComic = loadCharacterComicsFromDataBase(character : character).filter({$0.id == comic.id }).first
             
             
            if existingComic == nil {
@@ -52,8 +52,6 @@ class Database {
     }
     
     func loadCharacterComicsFromDataBase(character : Character) -> [Comic] {
-        print("prining eeeeee")
-        print(character)
         let characterComicsListArray = character.comics
         return Array(characterComicsListArray)
     }

@@ -1,37 +1,34 @@
 //
-//  CharacterDetailsVC.swift
+//  ComicsSlideShowVC.swift
 //  MarvelApiApp
 //
-//  Created by tarek on 1/24/20.
+//  Created by tarek on 1/27/20.
 //  Copyright © 2020 tarek. All rights reserved.
 //
 
 import UIKit
 import SVProgressHUD
 
-class CharacterDetailsVC: UIViewController {
-    
+class ComicsSlideShowVC: UIViewController {
+
     var selectedCharacter : Character?
     var characterComicsArray = [Comic]()
     
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var characterNameLbl: UILabel!
-    @IBOutlet weak var characterDescriptionLbl: UILabel!
-    @IBOutlet weak var characterImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        configureViews()
+        
         loadCharacterComics()
     }
     
-    
-    
+
     private func loadCharacterComics() {
         
         SVProgressHUD.setBackgroundColor( .black)
@@ -41,15 +38,15 @@ class CharacterDetailsVC: UIViewController {
         
         if let selectedCharacter = selectedCharacter  {
             MarvelApi.getCharacterComicsList(character: selectedCharacter) { (error, characterComicsArray) in
-            
+                
                 if error == nil {
                     if let characterComicsArray = characterComicsArray {
                         self.characterComicsArray = characterComicsArray
                         DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                        SVProgressHUD.dismiss()
+                            self.collectionView.reloadData()
+                            SVProgressHUD.dismiss()
                         }
-                       
+                        
                     }
                     
                 }else {
@@ -60,45 +57,24 @@ class CharacterDetailsVC: UIViewController {
     }
     
     
-    private func configureViews() {
-        
-        if let selectedCharacter = selectedCharacter {
-            MarvelApi.getImage(imageView: characterImageView, partialImagePathUrl: selectedCharacter.partialImagePathUrl, isLandscape: true)
-            characterNameLbl.text = selectedCharacter.name
-            characterDescriptionLbl.text = selectedCharacter.characterDescription
-        }
-    }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toComicsSlideShowVC" {
-            if let comicSlideShowVC = segue.destination as? ComicsSlideShowVC ,
-               let selectedCharacter = selectedCharacter   {
-               comicSlideShowVC.selectedCharacter = selectedCharacter
-            }
-        }
-    }
     
     
     
+
 }
 
-
-extension CharacterDetailsVC : UICollectionViewDelegate , UICollectionViewDataSource {
+extension ComicsSlideShowVC : UICollectionViewDelegate , UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return characterComicsArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ComicCell", for: indexPath) as? ComicsCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ComicSlideShowCell", for: indexPath) as? ComicSlideShowCell {
             let comic = characterComicsArray[indexPath.row]
-            cell.configureCells(comic : comic)
+            cell.configureCell(comic: comic)
             return cell
         }else {
             return UICollectionViewCell()
         }
     }
-    
-    
 }
-
