@@ -14,15 +14,16 @@ import SVProgressHUD
 class CharactersListVC: UIViewController  {
     
     var characterArray = [Character]()
+    
     var isSearching = false
     var nameStartWith : String? = nil
-    var offset =  0
     
+    var offset =  0
+
     var isOffline = false 
     
     var searchBarNav = UISearchBar()
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet var searchBtn: UIBarButtonItem!
     
     
@@ -33,19 +34,13 @@ class CharactersListVC: UIViewController  {
         tableView.dataSource = self
         
         
-       
         configureViews()
         loadCharacterList(offset: offset, startWith: nil)
     }
     
     
     private func loadCharacterList(offset : Int,startWith : String?) {
-       
-        SVProgressHUD.setBackgroundColor( .black)
-        SVProgressHUD.setForegroundColor(.white)
-        SVProgressHUD.setBorderWidth(4.0)
-        SVProgressHUD.show(withStatus: "loading character List ...")
-       
+        Messages.instance.showProgressSpinner(message: "loading character List ...")
         
         MarvelApi.getCharacterList(offset: offset, startWith: startWith) { (error, isOffline ,characterArray) in
             if error == nil {
@@ -55,11 +50,11 @@ class CharactersListVC: UIViewController  {
                     
                     DispatchQueue.main.async {
                          self.tableView.reloadData()
-                         SVProgressHUD.dismiss()
+                          Messages.instance.dissmissProgrressSpinner()
                     }
                 }
             }else {
-                print(error!)
+                Messages.instance.showMessage(title: "Error!", message: "Error loading character List", controller: self)
             }
         }
         
@@ -67,22 +62,14 @@ class CharactersListVC: UIViewController  {
     }
     
     
-    
     private func configureViews() {
-        
         navigationItem.titleView = UIImageView(image: UIImage(named: "marvelLogo"))
-        
         searchBarNav.delegate = self
-       
-        DispatchQueue.main.async {
-            self.searchBarNav.isHidden = true
-        }
     }
     
     private func toggleSearchBar(show : Bool ) {
         
          DispatchQueue.main.async {
-            
             
             self.navigationItem.titleView = show ?  self.searchBarNav : UIImageView(image: UIImage(named: "marvelLogo"))
             
@@ -91,7 +78,6 @@ class CharactersListVC: UIViewController  {
             self.searchBarNav.text =  ""
             self.searchBarNav.placeholder = show ? "search..." : ""
             self.searchBarNav.tintColor = .red
-            
             
             self.navigationItem.rightBarButtonItem = show ?  nil : self.searchBtn
             
@@ -106,7 +92,11 @@ class CharactersListVC: UIViewController  {
     
     
     @IBAction func searchBtnClicked(_ sender: Any) {
-        toggleSearchBar(show: true)
+        if isOffline {
+            Messages.instance.showMessage(title: "Offline", message: "Network is unavailabe", controller: self)
+        }else {
+            toggleSearchBar(show: true)
+        }
     }
     
     
@@ -126,11 +116,9 @@ class CharactersListVC: UIViewController  {
 
 extension CharactersListVC : UITableViewDelegate , UITableViewDataSource {
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return characterArray.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -165,23 +153,9 @@ extension CharactersListVC : UITableViewDelegate , UITableViewDataSource {
         }
     }
     
-
-    
-    
-    
-    
-    
-    
-    
 }
 
-
-
-
-
-
 extension CharactersListVC : UISearchBarDelegate {
-    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         DispatchQueue.main.async {
@@ -196,7 +170,6 @@ extension CharactersListVC : UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
     {
-        print("hello")
         toggleSearchBar(show: false)
         loadCharacterList(offset: offset, startWith: nil)
     }

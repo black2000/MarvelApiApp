@@ -16,7 +16,6 @@ class CharacterDetailsVC: UIViewController {
     
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var characterNameLbl: UILabel!
     @IBOutlet weak var characterDescriptionLbl: UILabel!
     @IBOutlet weak var characterImageView: UIImageView!
@@ -33,11 +32,8 @@ class CharacterDetailsVC: UIViewController {
     
     
     private func loadCharacterComics() {
-        
-        SVProgressHUD.setBackgroundColor( .black)
-        SVProgressHUD.setForegroundColor(.white)
-        SVProgressHUD.setBorderWidth(4.0)
-        SVProgressHUD.show(withStatus: "loading comics List ...")
+
+        Messages.instance.showProgressSpinner(message: "loading comics List ...")
         
         if let selectedCharacter = selectedCharacter  {
             MarvelApi.getCharacterComicsList(character: selectedCharacter) { (error, characterComicsArray) in
@@ -47,13 +43,11 @@ class CharacterDetailsVC: UIViewController {
                         self.characterComicsArray = characterComicsArray
                         DispatchQueue.main.async {
                         self.collectionView.reloadData()
-                        SVProgressHUD.dismiss()
+                        Messages.instance.dissmissProgrressSpinner()
                         }
-                       
                     }
-                    
                 }else {
-                    print(error)
+                     Messages.instance.showMessage(title: "Error!", message: "Error loading Comics List", controller: self)
                 }
             }
         }
@@ -61,14 +55,12 @@ class CharacterDetailsVC: UIViewController {
     
     
     private func configureViews() {
-        
         if let selectedCharacter = selectedCharacter {
             MarvelApi.getImage(imageView: characterImageView, partialImagePathUrl: selectedCharacter.partialImagePathUrl, isLandscape: true)
             characterNameLbl.text = selectedCharacter.name
             characterDescriptionLbl.text = selectedCharacter.characterDescription
         }
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toComicsSlideShowVC" {
@@ -78,7 +70,6 @@ class CharacterDetailsVC: UIViewController {
             }
         }
     }
-    
     
     
 }

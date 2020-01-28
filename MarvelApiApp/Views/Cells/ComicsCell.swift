@@ -12,12 +12,12 @@ class ComicsCell: UICollectionViewCell {
     
     
     @IBOutlet weak var comicImageView: UIImageView!
-    
     @IBOutlet weak var comicNameLbl: UILabel!
     
     func configureCells(comic : Comic ) {
         comicNameLbl.text = comic.name
         MarvelApi.getImage(imageView: comicImageView, partialImagePathUrl: comic.partialImagePathUrl, isLandscape: false)
     }
+    
     
 }

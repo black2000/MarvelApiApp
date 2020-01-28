@@ -20,10 +20,8 @@ class ComicsSlideShowVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         
         loadCharacterComics()
     }
@@ -31,10 +29,7 @@ class ComicsSlideShowVC: UIViewController {
 
     private func loadCharacterComics() {
         
-        SVProgressHUD.setBackgroundColor( .black)
-        SVProgressHUD.setForegroundColor(.white)
-        SVProgressHUD.setBorderWidth(4.0)
-        SVProgressHUD.show(withStatus: "loading comics List ...")
+         Messages.instance.showProgressSpinner(message: "loading comics Slide Show List ...")
         
         if let selectedCharacter = selectedCharacter  {
             MarvelApi.getCharacterComicsList(character: selectedCharacter) { (error, characterComicsArray) in
@@ -44,23 +39,16 @@ class ComicsSlideShowVC: UIViewController {
                         self.characterComicsArray = characterComicsArray
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
-                            SVProgressHUD.dismiss()
+                            Messages.instance.dissmissProgrressSpinner()
                         }
-                        
                     }
-                    
                 }else {
-                    print(error)
+                   Messages.instance.showMessage(title: "Error!", message: "Error loading Comics Slide Show List", controller: self)
                 }
             }
         }
     }
     
-    
-    
-    
-    
-
 }
 
 extension ComicsSlideShowVC : UICollectionViewDelegate , UICollectionViewDataSource {

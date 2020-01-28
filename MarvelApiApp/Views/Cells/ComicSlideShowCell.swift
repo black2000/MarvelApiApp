@@ -12,7 +12,6 @@ class ComicSlideShowCell: UICollectionViewCell {
 
     
     @IBOutlet weak var comicImageView: UIImageView!
-    
     @IBOutlet weak var comicTitleLbl: UILabel!
     
     func configureCell(comic : Comic) {

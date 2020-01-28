@@ -13,7 +13,7 @@
 		B50F5AA023DBA1F20041B1F4 /* CharacterDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F5A9F23DBA1F20041B1F4 /* CharacterDetailsVC.swift */; };
 		B50F5AA223DBB2A50041B1F4 /* ComicsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F5AA123DBB2A50041B1F4 /* ComicsCell.swift */; };
 		B50F5AA423DBBB300041B1F4 /* Comic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50F5AA323DBBB300041B1F4 /* Comic.swift */; };
-		B58BFB4F23DE5BA100B1F4F9 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58BFB4E23DE5BA100B1F4F9 /* DataBase.swift */; };
+		B58BFB4F23DE5BA100B1F4F9 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58BFB4E23DE5BA100B1F4F9 /* CacheService.swift */; };
 		B5DFE8D823DA4C30002FD527 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DFE8D723DA4C30002FD527 /* AppDelegate.swift */; };
 		B5DFE8DA23DA4C30002FD527 /* CharactersListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DFE8D923DA4C30002FD527 /* CharactersListVC.swift */; };
 		B5DFE8DD23DA4C30002FD527 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5DFE8DB23DA4C30002FD527 /* Main.storyboard */; };
@@ -22,6 +22,7 @@
 		B5DFE8EF23DAF871002FD527 /* MarvelApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DFE8EE23DAF871002FD527 /* MarvelApi.swift */; };
 		B5DFE8F123DB27E3002FD527 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DFE8F023DB27E3002FD527 /* Character.swift */; };
 		B5DFE8F423DB486A002FD527 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DFE8F323DB486A002FD527 /* CharacterCell.swift */; };
+		B5EC727523E087FA00675544 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EC727423E087FA00675544 /* Messages.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +34,7 @@
 		B50F5A9F23DBA1F20041B1F4 /* CharacterDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailsVC.swift; sourceTree = "<group>"; };
 		B50F5AA123DBB2A50041B1F4 /* ComicsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsCell.swift; sourceTree = "<group>"; };
 		B50F5AA323DBBB300041B1F4 /* Comic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comic.swift; sourceTree = "<group>"; };
-		B58BFB4E23DE5BA100B1F4F9 /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
+		B58BFB4E23DE5BA100B1F4F9 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		B5DFE8D423DA4C30002FD527 /* MarvelApiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelApiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5DFE8D723DA4C30002FD527 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5DFE8D923DA4C30002FD527 /* CharactersListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListVC.swift; sourceTree = "<group>"; };
@@ -44,6 +45,7 @@
 		B5DFE8EE23DAF871002FD527 /* MarvelApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarvelApi.swift; sourceTree = "<group>"; };
 		B5DFE8F023DB27E3002FD527 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		B5DFE8F323DB486A002FD527 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
+		B5EC727423E087FA00675544 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,30 @@
 				6430B7F74244CF023835B9A3 /* Pods_MarvelApiApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B501619223E0778C00533703 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				B5DFE8EE23DAF871002FD527 /* MarvelApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		B501619323E077B200533703 /* Caching */ = {
+			isa = PBXGroup;
+			children = (
+				B58BFB4E23DE5BA100B1F4F9 /* CacheService.swift */,
+			);
+			path = Caching;
+			sourceTree = "<group>";
+		};
+		B501619423E07B3F00533703 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B5EC727623E0880000675544 /* Messages */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		B5DFE8CB23DA4C30002FD527 = {
@@ -138,8 +164,9 @@
 		B5DFE8EC23DA5002002FD527 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B5DFE8EE23DAF871002FD527 /* MarvelApi.swift */,
-				B58BFB4E23DE5BA100B1F4F9 /* DataBase.swift */,
+				B501619423E07B3F00533703 /* Helpers */,
+				B501619223E0778C00533703 /* Api */,
+				B501619323E077B200533703 /* Caching */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -161,6 +188,14 @@
 				B501618F23DFA58400533703 /* ComicSlideShowCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		B5EC727623E0880000675544 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				B5EC727423E087FA00675544 /* Messages.swift */,
+			);
+			path = Messages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,11 +318,12 @@
 				B50F5AA223DBB2A50041B1F4 /* ComicsCell.swift in Sources */,
 				B5DFE8EF23DAF871002FD527 /* MarvelApi.swift in Sources */,
 				B501619023DFA58400533703 /* ComicSlideShowCell.swift in Sources */,
-				B58BFB4F23DE5BA100B1F4F9 /* DataBase.swift in Sources */,
+				B58BFB4F23DE5BA100B1F4F9 /* CacheService.swift in Sources */,
 				B5DFE8DA23DA4C30002FD527 /* CharactersListVC.swift in Sources */,
 				B50F5AA023DBA1F20041B1F4 /* CharacterDetailsVC.swift in Sources */,
 				B5DFE8D823DA4C30002FD527 /* AppDelegate.swift in Sources */,
 				B5DFE8F123DB27E3002FD527 /* Character.swift in Sources */,
+				B5EC727523E087FA00675544 /* Messages.swift in Sources */,
 				B501618E23DFA3B600533703 /* ComicsSlideShowVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
