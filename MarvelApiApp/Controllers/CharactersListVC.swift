@@ -40,7 +40,7 @@ class CharactersListVC: UIViewController  {
     
     private func loadCharacterList(offset : Int,startWith : String?) {
         
-        Messages.instance.showProgressSpinner(message: "loading character List ...")
+        Messages.instance.showProgressSpinner(message: "loading character List ... may take a time if offline")
         
         MarvelApi.getCharacterList(offset: offset, startWith: startWith) { (error, isOffline ,characterArray) in
             if error == nil {

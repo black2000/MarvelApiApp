@@ -33,7 +33,7 @@ class CharacterDetailsVC: UIViewController {
     
     private func loadCharacterComics() {
 
-        Messages.instance.showProgressSpinner(message: "loading comics List ...")
+        Messages.instance.showProgressSpinner(message: "loading comics List ... may take a time if offline")
         
         if let selectedCharacter = selectedCharacter  {
             MarvelApi.getCharacterComicsList(character: selectedCharacter) { (error, characterComicsArray) in
