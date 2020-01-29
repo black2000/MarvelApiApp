@@ -16,7 +16,6 @@ class Character : Object {
     @objc dynamic  var name : String = ""
     @objc dynamic var characterDescription : String = ""
     @objc dynamic var partialImagePathUrl  : String = ""
-    let comics = List<Comic>()
     
     override static func primaryKey() -> String? {
         return "id"

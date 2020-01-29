@@ -15,6 +15,8 @@ import Kingfisher
 
 class MarvelApi {
     
+    
+
     private static let publicApiKey = "8ae573e721dc704a5787e13a8a1cd0a8"
     private static let privateApiKey = "d54f4bd160851841f4bfe3700bd2c9b1942e6bc0"
     private static let ts = Date.timeIntervalSinceReferenceDate.description
@@ -164,6 +166,7 @@ class MarvelApi {
                     comic.id = id
                     comic.name = name
                     comic.partialImagePathUrl = partialImagePathUrl
+                    comic.characterId = character.id
                     
                     CacheService.instance.saveCharacterComicsInDataBase(character: character, comic: comic)
                     characterComicsArray.append(comic)

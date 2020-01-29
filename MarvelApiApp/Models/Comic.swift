@@ -14,8 +14,7 @@ class Comic : Object {
    @objc dynamic var id : Int = 0
    @objc dynamic  var name : String = ""
    @objc dynamic  var partialImagePathUrl  : String = ""
-   var parentCharacter = LinkingObjects(fromType: Character.self, property: "comics")
-    
+   @objc dynamic  var characterId  : Int = 0
    
     override static func primaryKey() -> String? {
         return "id"

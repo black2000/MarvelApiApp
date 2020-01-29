@@ -17,10 +17,13 @@ class CacheService {
     static let instance = CacheService()
     
     func saveCharacterInDataBase(character : Character ) {
+        
+        
         let realm = try! Realm()
         try! realm.write {
-            let existingComic = realm.objects(Character.self).filter("id == %@", character.id).first
-            if existingComic == nil {
+            let existingCharacter = realm.objects(Character.self).filter("id == %@", character.id).first
+           
+            if existingCharacter == nil {
                 realm.add(character)
             }
         }
@@ -33,18 +36,24 @@ class CacheService {
     }
     
     func saveCharacterComicsInDataBase( character : Character , comic: Comic) {
+        
         let realm = try! Realm()
         try! realm.write {
-           let existingComic = loadCharacterComicsFromDataBase(character : character).filter({$0.id == comic.id }).first
-    
+           
+           let existingComic = realm.objects(Comic.self).filter("id == %@", comic.id).first
+           
            if existingComic == nil {
-                 character.comics.append(comic)
+                 realm.add(comic)
            }
         }
     }
     
     func loadCharacterComicsFromDataBase(character : Character) -> [Comic] {
-        let characterComicsListArray = character.comics
+        
+        let realm = try! Realm()
+        
+        let characterComicsListArray = realm.objects(Comic.self).filter({$0.characterId == character.id})
+        
         return Array(characterComicsListArray)
     }
     
